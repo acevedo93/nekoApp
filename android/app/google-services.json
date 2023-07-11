@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "92806545016",
+    "project_id": "nekonapp",
+    "storage_bucket": "nekonapp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:92806545016:android:41660b7199aa8f5ab1f78d",
+        "android_client_info": {
+          "package_name": "com.example.nekonapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "92806545016-nncmtcvelou2mcdobkfpnf01hfnra53r.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDqeQRG_rOT3Bfu63Ey4UK04YC7X4j3AVE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "92806545016-nncmtcvelou2mcdobkfpnf01hfnra53r.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
