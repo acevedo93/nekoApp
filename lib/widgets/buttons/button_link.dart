@@ -16,7 +16,7 @@ class ButtonLink extends StatelessWidget {
   Widget build(BuildContext context) {
     return RichText(
         text: TextSpan(
-            text: 'Sign In',
+            text: label,
             style: TextStyle(color: color, fontWeight: FontWeight.bold),
             recognizer: TapGestureRecognizer()
               ..onTap = () {

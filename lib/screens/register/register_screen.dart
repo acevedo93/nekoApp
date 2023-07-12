@@ -30,7 +30,7 @@ class RegisterScreen extends StatelessWidget {
               )),  
             ],
           ), 
-          const RegisterForm()
+          RegisterForm()
           ]
         ),
       )

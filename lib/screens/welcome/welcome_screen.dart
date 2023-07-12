@@ -42,7 +42,9 @@ class _WelcomeView extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               const Text('Already have an account? ' ,style: TextStyle(color: Colors.white)),
-              ButtonLink(onPress: (){}, label: 'Sign In')
+              ButtonLink(onPress: (){
+                context.go('/signIn');
+              }, label: 'Sign In')
             ],
           )
         ]),

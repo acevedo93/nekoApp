@@ -1,22 +1,37 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:nekonapp/widgets/inputs/custom_input.dart';
 
-class RegisterForm extends StatelessWidget {
+import '../../../widgets/buttons/button_link.dart';
+
+class RegisterForm extends StatefulWidget {
   const RegisterForm({
     super.key,
   });
 
   @override
+  State<RegisterForm> createState() => _RegisterFormState();
+}
+
+class _RegisterFormState extends State<RegisterForm> {
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
+    final emailRegExp = RegExp(
+    r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$',
+  );
+
+  @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
     const titleStyle = TextStyle(
         fontSize: 38, fontWeight: FontWeight.bold, color: Colors.white);
 
-    return SafeArea(
-      child: Positioned(
-          top: 20,
+    return Positioned(
+          top: 50,
           bottom: 20,
-          left: 30,
-          right: 30,
+          left: 10,
+          right: 10,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -43,27 +58,68 @@ class RegisterForm extends StatelessWidget {
                 padding: const EdgeInsets.all(8.0),
                 child: Card(
                   child: Form(
+                    key: _formKey,
                     child: Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 20),
                       child: Column(
                         children: [
-                          TextFormField(),
-                          TextFormField(),
-                          TextFormField(),
+                          CustomInput(
+                            hint: "Email",
+                            obscureText: false,
+                            label: 'Nombre de usuario',
+                            onChanged: (value) => null, 
+                          ),
+                          CustomInput(
+                            obscureText: false,
+                            label: 'Email',
+                            onChanged: (value) => null,
+                          ),
+                          CustomInput(
+                            obscureText: true,
+                            label: 'Password',
+                            onChanged: (value) => null,
+                          ),
+                          
                           CheckboxListTile(
                             value: true,
                             onChanged: (value) {},
                             title: Text("I agree with the rules"),
                             controlAffinity: ListTileControlAffinity.leading, 
-                          )
+                          ),
+                           CheckboxListTile(
+                            value: true,
+                            onChanged: (value) {},
+                            title: Text("I agree with the rules"),
+                            controlAffinity: ListTileControlAffinity.leading, 
+                          ),
+                          ElevatedButton(
+                            onPressed: (){},
+                            child: Text("Sign up", style: TextStyle(color: Colors.white),),
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: theme.primaryColor,
+                              minimumSize: Size(double.infinity, 40)
+                            ),
+                          ),
+                          SizedBox(height: 20,)
                         ],
                       ),
                     ),
                   ),
                 ),
-              )
+                
+              ),
+              Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const Text('Already have an account? ',
+                  style: TextStyle(color: Colors.black)),
+              ButtonLink(onPress: () {
+                context.go('/signIn');
+              }, label: 'Sign In', color: theme.primaryColor)
             ],
-          )),
+          )
+            ],
+          ),
     );
   }
 }

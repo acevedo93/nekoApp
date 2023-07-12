@@ -13,6 +13,16 @@ class CustomTheme{
           foregroundColor: Colors.white,
         )
       ),
+      inputDecorationTheme: const InputDecorationTheme(
+        labelStyle: TextStyle(
+          color: Colors.grey
+        ),
+        floatingLabelStyle: TextStyle(
+          color: primary
+        ),
+        focusedBorder:UnderlineInputBorder(
+          borderSide: BorderSide(color: primary, width: 1)) , 
+      ),
       outlinedButtonTheme: OutlinedButtonThemeData(
         style: OutlinedButton.styleFrom(
           
@@ -24,7 +34,8 @@ class CustomTheme{
             fontWeight: FontWeight.bold
           ), 
         )
-      )
+      ),
+     
     );
   }
 }
