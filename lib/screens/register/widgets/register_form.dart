@@ -15,6 +15,9 @@ class RegisterForm extends StatefulWidget {
 
 class _RegisterFormState extends State<RegisterForm> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final emailController = TextEditingController();
+  final nameController = TextEditingController();
+  final passwordController = TextEditingController();
 
     final emailRegExp = RegExp(
     r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$',
@@ -64,18 +67,21 @@ class _RegisterFormState extends State<RegisterForm> {
                       child: Column(
                         children: [
                           CustomInput(
-                            hint: "Email",
+                            controller: nameController,
+                            hint: "Nombre",
                             obscureText: false,
                             label: 'Nombre de usuario',
                             onChanged: (value) => null, 
                           ),
                           CustomInput(
+                            controller: emailController,
                             obscureText: false,
                             label: 'Email',
                             onChanged: (value) => null,
                           ),
                           CustomInput(
-                            obscureText: true,
+                            controller: passwordController,
+                            mode: InputModes.password,
                             label: 'Password',
                             onChanged: (value) => null,
                           ),

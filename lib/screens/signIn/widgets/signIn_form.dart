@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:nekonapp/utils/forms_validators.dart';
 import 'package:nekonapp/widgets/inputs/custom_input.dart';
-
+import '../../../services/firebase/auth.dart';
 import '../../../widgets/buttons/button_link.dart';
 
 class SignInForm extends StatefulWidget {
-  const SignInForm({
-    super.key,
-  });
+  const SignInForm({super.key});
 
   @override
   State<SignInForm> createState() => _SignInFormState();
@@ -15,17 +14,22 @@ class SignInForm extends StatefulWidget {
 
 class _SignInFormState extends State<SignInForm> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-
-  final emailRegExp = RegExp(
-    r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$',
-  );
+  final emailController = TextEditingController();
+  final passwordController = TextEditingController();
+  final authService = Auth();
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-
     const titleStyle = TextStyle(
         fontSize: 38, fontWeight: FontWeight.bold, color: Colors.white);
+
+    void handleLogin() {
+      if (_formKey.currentState!.validate()) {
+        authService.loginWithEmailAndPassword(
+            emailController.text, passwordController.text);
+      }
+    }
 
     return Positioned(
       top: 50,
@@ -39,7 +43,7 @@ class _SignInFormState extends State<SignInForm> {
             onPressed: () {
               context.go('/');
             },
-            icon: Icon(Icons.arrow_back),
+            icon: const Icon(Icons.arrow_back),
             color: Colors.white,
           ),
           const SizedBox(
@@ -64,31 +68,35 @@ class _SignInFormState extends State<SignInForm> {
                   child: Column(
                     children: [
                       CustomInput(
-                        hint: "Email",
-                        obscureText: false,
-                        label: 'Email',
-                        onChanged: (value) => null,
-                      ),
-                     
+                          mode: InputModes.email,
+                          hint: "Email",
+                          label: 'Email',
+                          onChanged: (value) => null,
+                          validator: FormValidators.emailValidation,
+                          controller: emailController
+                          ),
                       CustomInput(
-                        obscureText: true,
+                        mode: InputModes.password,
                         label: 'Password',
+                        hint: 'password',
                         onChanged: (value) => null,
+                        validator: FormValidators.passwordValidation,
+                        controller: passwordController,
                       ),
-
-                      SizedBox(height: 40,),
-                      
+                      const SizedBox(
+                        height: 40,
+                      ),
                       ElevatedButton(
-                        onPressed: () {},
-                        child: Text(
+                        onPressed: handleLogin,
+                        style: ElevatedButton.styleFrom(
+                            backgroundColor: theme.primaryColor,
+                            minimumSize: const Size(double.infinity, 40)),
+                        child: const Text(
                           "Sign up",
                           style: TextStyle(color: Colors.white),
                         ),
-                        style: ElevatedButton.styleFrom(
-                            backgroundColor: theme.primaryColor,
-                            minimumSize: Size(double.infinity, 40)),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 20,
                       )
                     ],
@@ -104,8 +112,11 @@ class _SignInFormState extends State<SignInForm> {
                   style: TextStyle(color: Colors.black)),
               ButtonLink(
                   onPress: () {
+                   
                     context.go('/register');
-                  }, label: 'Registration', color: theme.primaryColor)
+                  },
+                  label: 'Registration',
+                  color: theme.primaryColor)
             ],
           )
         ],
