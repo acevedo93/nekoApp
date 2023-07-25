@@ -1,26 +1,41 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:nekonapp/router/router.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:nekonapp/state/router/providers/router_provider.dart';
 import 'package:nekonapp/theme/theme.dart';
 import 'firebase_options.dart';
 
-void main() async {
-  runApp(const MainApp());
+import "dart:developer" as devtools show log;
 
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-);
+extension Log on Object {
+  void log() => devtools.log(toString());
 }
 
-class MainApp extends StatelessWidget {
+void main() async {
+
+  WidgetsFlutterBinding.ensureInitialized();
+   await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+  runApp(const 
+  ProviderScope(
+    child: MainApp())
+  );
+
+ 
+}
+
+class MainApp extends ConsumerWidget {
   const MainApp({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, ref) {
     return MaterialApp.router(
-      routerConfig: router,
+      routerConfig: ref.watch(routerProvider),
       debugShowCheckedModeBanner: false,
       theme: CustomTheme.getTheme(),
     );
   }
+  
+  
 }

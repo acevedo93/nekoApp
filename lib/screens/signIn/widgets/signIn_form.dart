@@ -1,22 +1,26 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:nekonapp/main.dart';
+import 'package:nekonapp/state/auth/providers/auth_state_provider.dart';
+import 'package:nekonapp/state/auth/providers/is_loading_provider.dart';
+import 'package:nekonapp/state/auth/providers/is_logged_in_provider.dart';
 import 'package:nekonapp/utils/forms_validators.dart';
 import 'package:nekonapp/widgets/inputs/custom_input.dart';
-import '../../../services/firebase/auth.dart';
+import 'package:nekonapp/widgets/loader/loader.dart';
 import '../../../widgets/buttons/button_link.dart';
 
-class SignInForm extends StatefulWidget {
+class SignInForm extends ConsumerStatefulWidget {
   const SignInForm({super.key});
 
   @override
-  State<SignInForm> createState() => _SignInFormState();
+  SignInFormState createState() => SignInFormState();
 }
 
-class _SignInFormState extends State<SignInForm> {
+class SignInFormState extends ConsumerState<SignInForm> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
-  final authService = Auth();
 
   @override
   Widget build(BuildContext context) {
@@ -24,11 +28,9 @@ class _SignInFormState extends State<SignInForm> {
     const titleStyle = TextStyle(
         fontSize: 38, fontWeight: FontWeight.bold, color: Colors.white);
 
-    void handleLogin() {
-      if (_formKey.currentState!.validate()) {
-        authService.loginWithEmailAndPassword(
-            emailController.text, passwordController.text);
-      }
+    void handleLogin() async {
+      final loginWithEmailAndPassword = ref.read(authStateProvider.notifier).loginWithEmailAndPassword;
+     loginWithEmailAndPassword(emailController.text, passwordController.text);
     }
 
     return Positioned(
@@ -73,8 +75,7 @@ class _SignInFormState extends State<SignInForm> {
                           label: 'Email',
                           onChanged: (value) => null,
                           validator: FormValidators.emailValidation,
-                          controller: emailController
-                          ),
+                          controller: emailController),
                       CustomInput(
                         mode: InputModes.password,
                         label: 'Password',
@@ -87,14 +88,14 @@ class _SignInFormState extends State<SignInForm> {
                         height: 40,
                       ),
                       ElevatedButton(
-                        onPressed: handleLogin,
+                        onPressed:  handleLogin,
                         style: ElevatedButton.styleFrom(
                             backgroundColor: theme.primaryColor,
                             minimumSize: const Size(double.infinity, 40)),
-                        child: const Text(
-                          "Sign up",
-                          style: TextStyle(color: Colors.white),
-                        ),
+                        child: ref.watch(isLoadingProvider) ? const Loader(size: 20) :  const Text(
+                                "Sign up",
+                                style: TextStyle(color: Colors.white),
+                              ),
                       ),
                       const SizedBox(
                         height: 20,
@@ -112,7 +113,6 @@ class _SignInFormState extends State<SignInForm> {
                   style: TextStyle(color: Colors.black)),
               ButtonLink(
                   onPress: () {
-                   
                     context.go('/register');
                   },
                   label: 'Registration',

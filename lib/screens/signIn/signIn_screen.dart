@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:nekonapp/screens/register/widgets/register_form.dart';
 import 'package:nekonapp/screens/signIn/widgets/signIn_form.dart';
 
 class SignInScreen extends StatelessWidget {
