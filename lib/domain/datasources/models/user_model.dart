@@ -12,7 +12,7 @@ class UserModel extends Equatable {
   final String name;
   final String email;
   final String createdAt;
-  final Genre genre;
+  final String genre;
 
   const UserModel({
     required this.id,

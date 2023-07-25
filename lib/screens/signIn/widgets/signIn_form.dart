@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:nekonapp/main.dart';
 import 'package:nekonapp/state/auth/providers/auth_state_provider.dart';
 import 'package:nekonapp/state/auth/providers/is_loading_provider.dart';
-import 'package:nekonapp/state/auth/providers/is_logged_in_provider.dart';
 import 'package:nekonapp/utils/forms_validators.dart';
 import 'package:nekonapp/widgets/inputs/custom_input.dart';
 import 'package:nekonapp/widgets/loader/loader.dart';

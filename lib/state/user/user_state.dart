@@ -14,6 +14,6 @@ class UserState {
   });
 
   UserState copiedWithIsLoading(bool isLoading) => UserState(currentUser: this.currentUser, isLoading: isLoading);
-  UserState copyWith(bool? isLoading, UserModel? currentUser ) => UserState(isLoading: isLoading ?? this.isLoading, currentUser: currentUser ?? this.currentUser)
+  UserState copyWith(bool? isLoading, UserModel? currentUser ) => UserState(isLoading: isLoading ?? this.isLoading, currentUser: currentUser ?? this.currentUser);
   
 }

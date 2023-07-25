@@ -29,6 +29,5 @@ class UserStateNotifier extends StateNotifier<UserState> {
     state = state.copiedWithIsLoading(true);
     await _userRepository.updateUser(user);
     state = state.copyWith(false, user);
-  }
- 
+  } 
 }

@@ -9,7 +9,9 @@ import '../auth_state.dart';
 class AuthStateNotifier extends StateNotifier<AuthState> {
   final _authRepository =
       AuthRepositoryImpl(authDataSource: FirebaseAuthDataSourceImpl());
-      final _userState = UserStateNotifier();
+
+  final _userState = UserStateNotifier();
+      
 
   AuthStateNotifier() : super(const AuthState.unknown()) {
     if (_authRepository.isAlreadyLoggedIn) {
@@ -27,23 +29,33 @@ class AuthStateNotifier extends StateNotifier<AuthState> {
   }
 
   Future<void> registerWithEmailAndPassword(
-      String email, String password) async {
+      String email, String password, String name) async {
     state = state.copiedWithIsLoading(true);
-    final result = await _authRepository.registerWithEmailAndPassword(email, password);
+    final result =
+        await _authRepository.registerWithEmailAndPassword(email, password);
     final userId = _authRepository.userId;
-      state = state.copyWith(userId, false, result);
+    if (userId != null && result == AuthResult.success) {
+      await saveUser(email, DateTime.now().toString(), 'M', userId, name);
+    }
+    state = state.copyWith(userId, false, result);
   }
 
-  Future<void> loginWithEmailAndPassword(String email, String password, UserModel data) async{
+  Future<void> loginWithEmailAndPassword(String email, String password) async {
     state = state.copiedWithIsLoading(true);
-    final result =  await _authRepository.loginWithEmailAndPassword(email, password);
+    final result =
+        await _authRepository.loginWithEmailAndPassword(email, password);
     final userId = _authRepository.userId;
     state = state.copyWith(userId, false, result);
-    if(userId!= null && result != AuthResult.failure){
-    await _userState.saveUser(UserModel(id: userId, name: name, email: email, genre: genre, createdAt: createdAt))
-    }
-  
+  }
 
-
+  Future<void> saveUser(String email, String createdAt, String genre,
+      String userId, String name) async {
+    final UserModel data = UserModel(
+        id: userId,
+        name: name,
+        email: email,
+        genre: genre,
+        createdAt: createdAt);
+    await _userState.saveUser(data);
   }
 }

@@ -17,7 +17,7 @@ class FirebaseUserDataSourceImpl extends UserDatasource {
 
   @override
   Future<void> saveUser(UserModel user) async {
-    final userDocument = firestore.collection(collectionPath).doc('123');
+    final userDocument = firestore.collection(collectionPath).doc(user.id);
     await userDocument.set(user.toJson());
   }
 

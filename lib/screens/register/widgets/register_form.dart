@@ -1,27 +1,27 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:nekonapp/state/auth/providers/auth_state_provider.dart';
+import 'package:nekonapp/utils/forms_validators.dart';
 import 'package:nekonapp/widgets/inputs/custom_input.dart';
-
+import '../../../state/auth/providers/is_loading_provider.dart';
 import '../../../widgets/buttons/button_link.dart';
+import '../../../widgets/loader/loader.dart';
 
-class RegisterForm extends StatefulWidget {
+class RegisterForm extends ConsumerStatefulWidget {
   const RegisterForm({
     super.key,
   });
 
   @override
-  State<RegisterForm> createState() => _RegisterFormState();
+  RegisterFormState createState() => RegisterFormState();
 }
 
-class _RegisterFormState extends State<RegisterForm> {
+class RegisterFormState extends ConsumerState<RegisterForm> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final emailController = TextEditingController();
   final nameController = TextEditingController();
   final passwordController = TextEditingController();
-
-    final emailRegExp = RegExp(
-    r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$',
-  );
 
   @override
   Widget build(BuildContext context) {
@@ -30,102 +30,109 @@ class _RegisterFormState extends State<RegisterForm> {
     const titleStyle = TextStyle(
         fontSize: 38, fontWeight: FontWeight.bold, color: Colors.white);
 
-    return Positioned(
-          top: 50,
-          bottom: 20,
-          left: 10,
-          right: 10,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              IconButton(
-                onPressed: () {
-                  context.go('/');
-                },
-                icon: Icon(Icons.arrow_back),
-                color: Colors.white,
-              ),
-              const SizedBox(
-                height: 40,
-              ),
-              const Padding(
-                padding: EdgeInsets.symmetric(horizontal: 30),
-                child: Text(
-                  'Registration',
-                  style: titleStyle,
-                ),
-              ),
+    void handleRegister() async {
+      final registerWithEmailAndPassword = ref
+          .read(authStateProvider.notifier)
+          .registerWithEmailAndPassword;
 
-              //FORM
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Card(
-                  child: Form(
-                    key: _formKey,
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 20),
-                      child: Column(
-                        children: [
-                          CustomInput(
-                            controller: nameController,
-                            hint: "Nombre",
-                            obscureText: false,
-                            label: 'Nombre de usuario',
-                            onChanged: (value) => null, 
-                          ),
-                          CustomInput(
-                            controller: emailController,
-                            obscureText: false,
-                            label: 'Email',
-                            onChanged: (value) => null,
-                          ),
-                          CustomInput(
-                            controller: passwordController,
-                            mode: InputModes.password,
-                            label: 'Password',
-                            onChanged: (value) => null,
-                          ),
-                          
-                          CheckboxListTile(
-                            value: true,
-                            onChanged: (value) {},
-                            title: Text("I agree with the rules"),
-                            controlAffinity: ListTileControlAffinity.leading, 
-                          ),
-                           CheckboxListTile(
-                            value: true,
-                            onChanged: (value) {},
-                            title: Text("I agree with the rules"),
-                            controlAffinity: ListTileControlAffinity.leading, 
-                          ),
-                          ElevatedButton(
-                            onPressed: (){},
-                            child: Text("Sign up", style: TextStyle(color: Colors.white),),
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: theme.primaryColor,
-                              minimumSize: Size(double.infinity, 40)
-                            ),
-                          ),
-                          SizedBox(height: 20,)
-                        ],
+      registerWithEmailAndPassword(emailController.text, passwordController.text, nameController.text);
+    }
+
+   
+    return Positioned(
+      top: 50,
+      bottom: 20,
+      left: 10,
+      right: 10,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          IconButton(
+            onPressed: () {
+              context.go('/');
+            },
+            icon: const Icon(Icons.arrow_back),
+            color: Colors.white,
+          ),
+          const SizedBox(
+            height: 40,
+          ),
+          const Padding(
+            padding: EdgeInsets.symmetric(horizontal: 30),
+            child: Text(
+              'Registration',
+              style: titleStyle,
+            ),
+          ),
+
+          //FORM
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Card(
+              child: Form(
+                key: _formKey,
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  child: Column(
+                    children: [
+                      CustomInput(
+                        controller: nameController,
+                        hint: "Nombre",
+                        obscureText: false,
+                        label: 'Nombre de usuario',
+                        onChanged: (value) => null,
                       ),
-                    ),
+                      CustomInput(
+                        controller: emailController,
+                        obscureText: false,
+                        label: 'Email',
+                        onChanged: (value) => null,
+                        validator: FormValidators.emailValidation,
+                      ),
+                      CustomInput(
+                        controller: passwordController,
+                        mode: InputModes.password,
+                        label: 'Password',
+                        onChanged: (value) => null,
+                        validator: FormValidators.passwordValidation,
+                      ), 
+                      ElevatedButton(
+                        onPressed: 
+                          handleRegister,
+                        style: ElevatedButton.styleFrom(
+                            backgroundColor: theme.primaryColor,
+                            minimumSize: const Size(double.infinity, 40)),
+                       child: ref.watch(isLoadingProvider)
+                            ? const Loader(size: 20)
+                            : const Text(
+                                "Sign up",
+                                style: TextStyle(color: Colors.white),
+                              ),
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      )
+                    ],
                   ),
                 ),
-                
               ),
-              Row(
+            ),
+          ),
+          Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               const Text('Already have an account? ',
                   style: TextStyle(color: Colors.black)),
-              ButtonLink(onPress: () {
-                context.go('/signIn');
-              }, label: 'Sign In', color: theme.primaryColor)
+              ButtonLink(
+                  onPress: () {
+                    context.go('/signIn');
+                  },
+                  label: 'Sign In',
+                  color: theme.primaryColor)
             ],
           )
-            ],
-          ),
+        ],
+      ),
     );
   }
 }

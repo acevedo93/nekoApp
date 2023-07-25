@@ -40,8 +40,6 @@ class AuthRepositoryImpl extends AuthRepository {
   
   @override
   Future<AuthResult> registerWithEmailAndPassword(String email, String password) {
-    print(email);
-    print(password);
     return authDataSource.registerWithEmailAndPassword(email, password);
   }
   
