@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:nekonapp/state/router/providers/router_provider.dart';
-import 'package:nekonapp/theme/theme.dart';
+import 'package:nekonapp/presentation/state/router/providers/router_provider.dart';
+import 'package:nekonapp/presentation/theme/theme.dart';
 import 'firebase_options.dart';
 
 import "dart:developer" as devtools show log;

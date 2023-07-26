@@ -1,6 +1,6 @@
-import 'package:nekonapp/state/auth/models/auth_result.dart';
 
-import '../../state/auth/models/user_id.dart';
+import '../datasources/models/auth_result_model.dart';
+import '../datasources/models/user_model.dart';
 
 abstract class AuthRepository {
   String? get email;

@@ -1,10 +1,6 @@
 import 'package:equatable/equatable.dart';
-import 'package:nekonapp/state/auth/models/user_id.dart';
 
-enum Genre {
-  masculine,
-  femenine
-}
+typedef UserId = String;
 
 class UserModel extends Equatable {
 

@@ -1,8 +1,8 @@
 
 
 
-import '../../state/auth/models/auth_result.dart';
-import '../../state/auth/models/user_id.dart';
+import 'models/auth_result_model.dart';
+import 'models/user_model.dart';
 
 abstract class AuthDatasource {
   String? get email;

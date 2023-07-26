@@ -2,9 +2,10 @@
 
 import 'package:nekonapp/domain/datasources/auth_datasource.dart';
 import 'package:nekonapp/domain/repositories/auth_respository.dart';
-import 'package:nekonapp/state/auth/models/auth_result.dart';
 
-import '../../state/auth/models/user_id.dart';
+import '../../domain/datasources/models/auth_result_model.dart';
+import '../../domain/datasources/models/user_model.dart';
+
 
 class AuthRepositoryImpl extends AuthRepository {
 
