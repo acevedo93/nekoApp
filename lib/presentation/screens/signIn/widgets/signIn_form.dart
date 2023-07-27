@@ -2,11 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:nekonapp/presentation/state/auth/providers/auth_state_provider.dart';
+import 'package:nekonapp/presentation/state/auth/providers/is_error_provider.dart';
 import 'package:nekonapp/presentation/state/auth/providers/is_loading_provider.dart';
+import 'package:nekonapp/presentation/widgets/messages/snack_bar.dart';
 import 'package:nekonapp/utils/forms_validators.dart';
-import 'package:nekonapp/widgets/inputs/custom_input.dart';
-import 'package:nekonapp/widgets/loader/loader.dart';
-import '../../../../widgets/buttons/button_link.dart';
+import 'package:nekonapp/presentation/widgets/inputs/custom_input.dart';
+import 'package:nekonapp/presentation/widgets/loader/loader.dart';
+import 'package:animated_snack_bar/animated_snack_bar.dart';
+import '../../../widgets/buttons/button_link.dart';
 
 class SignInForm extends ConsumerStatefulWidget {
   const SignInForm({super.key});
@@ -25,11 +28,21 @@ class SignInFormState extends ConsumerState<SignInForm> {
     final theme = Theme.of(context);
     const titleStyle = TextStyle(
         fontSize: 38, fontWeight: FontWeight.bold, color: Colors.white);
-
     void handleLogin() async {
-      final loginWithEmailAndPassword = ref.read(authStateProvider.notifier).loginWithEmailAndPassword;
+      final loginWithEmailAndPassword =
+          ref.read(authStateProvider.notifier).loginWithEmailAndPassword;
       loginWithEmailAndPassword(emailController.text, passwordController.text);
     }
+
+    ref.listen(isErrorProvider, (previous, next) {
+      final String errorMessage = next?.message ?? 'Error';
+      AnimatedSnackBar(
+        builder: ((context) {
+          return SnackBarMessage(
+              message: errorMessage, messageType: MessageType.error);
+        }),
+      ).show(context);
+    });
 
     return Positioned(
       top: 50,
@@ -84,11 +97,13 @@ class SignInFormState extends ConsumerState<SignInForm> {
                         height: 40,
                       ),
                       ElevatedButton(
-                        onPressed:  handleLogin,
+                        onPressed: handleLogin,
                         style: ElevatedButton.styleFrom(
                             backgroundColor: theme.primaryColor,
                             minimumSize: const Size(double.infinity, 40)),
-                        child: ref.watch(isLoadingProvider) ? const Loader(size: 20) :  const Text(
+                        child: ref.watch(isLoadingProvider)
+                            ? const Loader(size: 20)
+                            : const Text(
                                 "Sign up",
                                 style: TextStyle(color: Colors.white),
                               ),
@@ -96,7 +111,6 @@ class SignInFormState extends ConsumerState<SignInForm> {
                       const SizedBox(
                         height: 20,
                       )
-                      
                     ],
                   ),
                 ),

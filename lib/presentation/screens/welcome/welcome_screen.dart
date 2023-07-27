@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:nekonapp/presentation/screens/welcome/widgets/welcome_title.dart';
-import 'package:nekonapp/widgets/widgets.dart';
+import 'package:nekonapp/presentation/widgets/widgets.dart';
 
 class WelcomeScreen extends StatelessWidget {
   const WelcomeScreen({super.key});

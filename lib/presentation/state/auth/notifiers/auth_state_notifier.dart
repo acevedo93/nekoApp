@@ -37,10 +37,7 @@ class AuthStateNotifier extends StateNotifier<AuthState> {
     if (userId != null && result.status == AuthResultStatus.success) {
       await saveUser(email, DateTime.now().toString(), 'M', userId, name);
     }
-    state = state.copyWith(userId, false, result);
-    if(result.status == AuthResultStatus.failure){
-      //show toast with message
-    }
+    state = state.copyWith(userId, false, result); 
   }
 
   Future<void> loginWithEmailAndPassword(String email, String password) async {
@@ -48,11 +45,7 @@ class AuthStateNotifier extends StateNotifier<AuthState> {
     final result =
         await _authRepository.loginWithEmailAndPassword(email, password);
     final userId = _authRepository.userId;
-    state = state.copyWith(userId, false, result);
-    if (result.status == AuthResultStatus.failure) {
-      //show toast with message
-
-    }
+    state = state.copyWith(userId, false, result); 
   }
 
   Future<void> saveUser(String email, String createdAt, String genre,

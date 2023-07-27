@@ -10,12 +10,12 @@ class FirebaseErrorAdapter {
     'invalid-state': 'El estado es inválido',
     'timeout': 'Se agotó el tiempo de espera',
     'unknown': 'Error desconocido',
-    'invalid-email': 'El correo electrónico contraseña proporcionada no es válida',
-    'invalid-password': 'El correo electrónico contraseña proporcionada no es válida',
+    'invalid-email': 'El correo electrónico o contraseña proporcionada no es válida',
+    'invalid-password': 'El correo electrónico o contraseña proporcionada no es válida',
     'user-not-found':
-        'El correo electrónico contraseña proporcionada no es válida',
+        'El correo electrónico contraseña o proporcionada no es válida',
     'wrong-password':
-        'El correo electrónico contraseña proporcionada no es válida',
+        'El correo electrónico contraseña o proporcionada no es válida',
     'too-many-requests':
         'Se han realizado demasiadas solicitudes de autenticación en un corto período de tiempo',
     'network-error':

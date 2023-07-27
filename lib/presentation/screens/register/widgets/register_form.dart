@@ -3,10 +3,10 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:nekonapp/presentation/state/auth/providers/auth_state_provider.dart';
 import 'package:nekonapp/utils/forms_validators.dart';
-import 'package:nekonapp/widgets/inputs/custom_input.dart';
+import 'package:nekonapp/presentation/widgets/inputs/custom_input.dart';
 import '../../../state/auth/providers/is_loading_provider.dart';
-import '../../../../widgets/buttons/button_link.dart';
-import '../../../../widgets/loader/loader.dart';
+import '../../../widgets/buttons/button_link.dart';
+import '../../../widgets/loader/loader.dart';
 
 class RegisterForm extends ConsumerStatefulWidget {
   const RegisterForm({
