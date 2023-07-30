@@ -19,6 +19,7 @@ final routerProvider = Provider<GoRouter>((ref) {
   ],
   redirect: (context, state)  {
     final isLoggedIn = ref.watch(isLoggedInProvider);
+    print(isLoggedIn);
     if(isLoggedIn) {
       return '/home';
     }

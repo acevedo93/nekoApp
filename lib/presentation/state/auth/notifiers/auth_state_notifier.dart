@@ -16,7 +16,7 @@ class AuthStateNotifier extends StateNotifier<AuthState> {
   AuthStateNotifier() : super(AuthState.unknown()) {
     if (_authRepository.isAlreadyLoggedIn) {
       state = AuthState(
-          result: AuthResult(status: AuthResultStatus.aborted),
+          result: AuthResult(status: AuthResultStatus.success),
           isLoading: false,
           userId: _authRepository.userId);
     }
