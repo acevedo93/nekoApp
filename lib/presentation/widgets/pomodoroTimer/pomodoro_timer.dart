@@ -1,7 +1,9 @@
 
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:nekonapp/presentation/state/pomodoro/providers/pomodoro_state_provider.dart';
+import 'package:nekonapp/presentation/theme/theme.dart';
 
 class PomodoroTimer extends ConsumerStatefulWidget {
   const PomodoroTimer({super.key});
@@ -22,10 +24,10 @@ class PomodoroTimerState extends ConsumerState<PomodoroTimer> {
     return ref.watch(pomodoroStateProvider).isPomoActive
         ? CupertinoButton(
             onPressed: ref.read(pomodoroStateProvider.notifier).stop,
-            child: const Icon(CupertinoIcons.stop))
+            child: const Icon(CupertinoIcons.stop, color: secondary,))
         : CupertinoButton(
             onPressed: ref.read(pomodoroStateProvider.notifier).play,
-            child: const Icon(CupertinoIcons.play),
+            child: const Icon(CupertinoIcons.play, color: secondary,),
           );
   }
 
@@ -39,6 +41,7 @@ class PomodoroTimerState extends ConsumerState<PomodoroTimer> {
   Widget build(BuildContext context) {
 
     var size = MediaQuery.of(context).size;
+    final secondaryColor= Theme.of(context).secondaryHeaderColor;
     return Center(
         child: Column(
       children: [
@@ -46,8 +49,9 @@ class PomodoroTimerState extends ConsumerState<PomodoroTimer> {
           width: size.width,
           child: Center(
             child: Text(formatTimer(),
-                style: const TextStyle(
+                style: TextStyle(
                   fontSize: 100,
+                  color: secondaryColor,
                 )),
           ),
         ),

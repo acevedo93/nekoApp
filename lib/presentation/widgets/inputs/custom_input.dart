@@ -28,8 +28,8 @@ class CustomInput extends StatelessWidget {
     final InputDecoration customInputDecoration = InputDecoration(
         fillColor: theme.primaryColor,
         label: label != null ? Text(label!) : null,
+       
     );
-
     if (mode == InputModes.password) {
       return _TextFormFieldPassword(
         onChanged: onChanged,

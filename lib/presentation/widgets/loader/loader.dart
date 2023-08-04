@@ -6,12 +6,13 @@ class Loader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final primaryColor = Theme.of(context).primaryColor;
     return SizedBox(
       height: size,
       width: size,
-      child: const CircularProgressIndicator(
+      child: CircularProgressIndicator(
         strokeWidth: 2,
-        color: Colors.white
+        color: primaryColor
       ),
     );
   }

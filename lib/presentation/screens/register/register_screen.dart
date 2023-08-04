@@ -8,14 +8,15 @@ class RegisterScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
     final primaryColor = Theme.of(context).primaryColor;
+    final secondaryColor = Theme.of(context).secondaryHeaderColor;
 
-    final gradientDecoration = BoxDecoration(
-      gradient: LinearGradient(
-        colors: [Color(0xFFA7BFD9), primaryColor ],
-        stops: [0.0, 0.3],
-        begin: Alignment.topLeft,
-        end: Alignment.bottomRight
-      )
+ final gradientDecoration = BoxDecoration(
+        gradient: LinearGradient(
+            colors: [primaryColor, secondaryColor],
+            stops: const [0.5, 1],
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight
+        )
 
     );
 
@@ -25,16 +26,15 @@ class RegisterScreen extends StatelessWidget {
           children: [
             Column(
             children: [
-              Container(height: height * 0.4 , decoration: gradientDecoration,),
+              Container(height: height, decoration: gradientDecoration,),
               Expanded(child: Container(
               )),  
             ],
           ), 
-          RegisterForm()
+          const RegisterForm()
           ]
         ),
       )
-
     );
   }
 }

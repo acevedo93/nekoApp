@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:nekonapp/presentation/state/auth/providers/auth_state_provider.dart';
 import 'package:nekonapp/presentation/state/auth/providers/is_error_provider.dart';
 import 'package:nekonapp/presentation/state/auth/providers/is_loading_provider.dart';
+import 'package:nekonapp/presentation/theme/theme.dart';
 import 'package:nekonapp/presentation/widgets/messages/snack_bar.dart';
 import 'package:nekonapp/utils/forms_validators.dart';
 import 'package:nekonapp/presentation/widgets/inputs/custom_input.dart';
@@ -57,7 +58,7 @@ class SignInFormState extends ConsumerState<SignInForm> {
               context.go('/');
             },
             icon: const Icon(Icons.arrow_back),
-            color: Colors.white,
+            color: secondary,
           ),
           const SizedBox(
             height: 40,
@@ -73,8 +74,7 @@ class SignInFormState extends ConsumerState<SignInForm> {
           //FORM
           Padding(
             padding: const EdgeInsets.all(8.0),
-            child: Card(
-              child: Form(
+            child: Form(
                 key: _formKey,
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -86,6 +86,7 @@ class SignInFormState extends ConsumerState<SignInForm> {
                           label: 'Email',
                           validator: FormValidators.emailValidation,
                           controller: emailController),
+                          const SizedBox(height: 20,),
                       CustomInput(
                         mode: InputModes.password,
                         label: 'Password',
@@ -99,13 +100,13 @@ class SignInFormState extends ConsumerState<SignInForm> {
                       ElevatedButton(
                         onPressed: handleLogin,
                         style: ElevatedButton.styleFrom(
-                            backgroundColor: theme.primaryColor,
+                            backgroundColor: theme.secondaryHeaderColor,
                             minimumSize: const Size(double.infinity, 40)),
                         child: ref.watch(isLoadingProvider)
                             ? const Loader(size: 20)
                             : const Text(
-                                "Sign up",
-                                style: TextStyle(color: Colors.white),
+                                "Sign In",
+                                style: TextStyle(color: primary),
                               ),
                       ),
                       const SizedBox(
@@ -116,7 +117,7 @@ class SignInFormState extends ConsumerState<SignInForm> {
                 ),
               ),
             ),
-          ),
+          
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -127,7 +128,7 @@ class SignInFormState extends ConsumerState<SignInForm> {
                     context.go('/register');
                   },
                   label: 'Registration',
-                  color: theme.primaryColor)
+                  color: theme.secondaryHeaderColor)
             ],
           )
         ],

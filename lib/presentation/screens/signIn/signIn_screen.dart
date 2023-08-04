@@ -13,7 +13,7 @@ class SignInScreen extends StatelessWidget {
     final gradientDecoration = BoxDecoration(
         gradient: LinearGradient(
             colors: [primaryColor, secondaryColor],
-            stops: [0.0, 0.8],
+            stops: const [0.5, 1],
             begin: Alignment.topLeft,
             end: Alignment.bottomRight));
 
@@ -24,7 +24,7 @@ class SignInScreen extends StatelessWidget {
           children: [
             Container(
               height: height * 1,
-              decoration: gradientDecoration,
+              decoration: gradientDecoration,   
             ),
             Expanded(child: Container()),
           ],
