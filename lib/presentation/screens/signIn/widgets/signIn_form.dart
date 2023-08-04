@@ -26,8 +26,8 @@ class SignInFormState extends ConsumerState<SignInForm> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    const titleStyle = TextStyle(
-        fontSize: 38, fontWeight: FontWeight.bold, color: Colors.white);
+    final textTheme= Theme.of(context).textTheme;
+    
     void handleLogin() async {
       final loginWithEmailAndPassword =
           ref.read(authStateProvider.notifier).loginWithEmailAndPassword;
@@ -62,11 +62,11 @@ class SignInFormState extends ConsumerState<SignInForm> {
           const SizedBox(
             height: 40,
           ),
-          const Padding(
-            padding: EdgeInsets.symmetric(horizontal: 30),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 30),
             child: Text(
               'Sign In',
-              style: titleStyle,
+              style: textTheme.headlineLarge
             ),
           ),
 
@@ -120,8 +120,8 @@ class SignInFormState extends ConsumerState<SignInForm> {
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const Text("Don't have account yet? ",
-                  style: TextStyle(color: Colors.black)),
+              Text("Don't have account yet? ",
+                  style: textTheme.bodyLarge),
               ButtonLink(
                   onPress: () {
                     context.go('/register');

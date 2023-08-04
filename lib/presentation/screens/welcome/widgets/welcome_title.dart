@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:nekonapp/presentation/theme/theme.dart';
 
 class WelcomeTitle
  extends StatelessWidget {
@@ -10,12 +11,11 @@ class WelcomeTitle
 
     final theme = Theme.of(context);
     final double containerWidth = MediaQuery.of(context).size.width * 0.8;
-
-    const TextStyle textStyle = TextStyle(
+    TextStyle textStyle = TextStyle(
       fontSize: 48,
-      fontWeight: FontWeight.bold
+      fontWeight: FontWeight.bold,
+      color: theme.secondaryHeaderColor
     );
-   final TextStyle secondary = textStyle.copyWith(color: theme.secondaryHeaderColor);
 
     return FractionallySizedBox(
       // widthFactor: 0.8,
@@ -25,8 +25,8 @@ class WelcomeTitle
           text: TextSpan( 
             
             children: <TextSpan> [
-              const TextSpan(text: "Welcome \nto", style: textStyle),
-              TextSpan(text: " NekoAPP", style: secondary)
+              TextSpan(text: "Welcome \nto", style: textStyle),
+              TextSpan(text: " NekoAPP", style: textStyle)
     
             ]
           ),

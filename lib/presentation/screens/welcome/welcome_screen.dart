@@ -9,18 +9,23 @@ class WelcomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+
     return Scaffold(
         backgroundColor: theme.primaryColor, body: const _WelcomeView());
   }
 }
 
 class _WelcomeView extends StatelessWidget {
+
   const _WelcomeView({
     super.key,
   });
 
   @override
   Widget build(BuildContext context) {
+
+    final textTheme = Theme.of(context).textTheme;
+    final theme = Theme.of(context);
     return SafeArea(
       child: Center(
         child: Column(children: [
@@ -41,10 +46,12 @@ class _WelcomeView extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const Text('Already have an account? ' ,style: TextStyle(color: Colors.white)),
+              Text('Already have an account? ' ,
+                  style: textTheme.bodyLarge),
               ButtonLink(onPress: (){
                 context.go('/signIn');
-              }, label: 'Sign In')
+              }, label: 'Sign In',
+                  color: theme.secondaryHeaderColor)
             ],
           )
         ]),

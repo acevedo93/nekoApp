@@ -1,36 +1,46 @@
 import 'package:flutter/material.dart';
 
-const Color primary = Color(0xFFD69054);
-const Color secondary = Color(0xFFFFCF6F);
+const Color secondary = Color(0xFF8a2be2);
+const Color primary = Color(0xFFfaf931);
 class CustomTheme{
   static getTheme () {
     return ThemeData(
       useMaterial3: true,
       primaryColor: primary, 
       secondaryHeaderColor: secondary,
+      
+      textTheme: const TextTheme(
+        headlineLarge: TextStyle(color: secondary, fontWeight: FontWeight.bold),
+        bodyLarge: TextStyle(color: secondary)
+      ),
+      elevatedButtonTheme: ElevatedButtonThemeData(
+        style: ElevatedButton.styleFrom(
+          backgroundColor: secondary
+        )
+      ),
       textButtonTheme: TextButtonThemeData(
         style: TextButton.styleFrom(
-          foregroundColor: Colors.white,
+          foregroundColor: secondary,
         )
       ),
       inputDecorationTheme: const InputDecorationTheme(
         labelStyle: TextStyle(
-          color: Colors.grey
+          color: secondary
         ),
         floatingLabelStyle: TextStyle(
-          color: primary
+          color: secondary
         ),
         focusedBorder:UnderlineInputBorder(
-          borderSide: BorderSide(color: primary, width: 1)) , 
+          borderSide: BorderSide(color: secondary, width: 1)) , 
       ),
       outlinedButtonTheme: OutlinedButtonThemeData(
         style: OutlinedButton.styleFrom(
           
-          foregroundColor: Colors.white,
+          foregroundColor: secondary,
           padding: const EdgeInsets.symmetric(horizontal: 70),
-          side:const  BorderSide( width: 1, color: Colors.white),
+          side:const  BorderSide( width: 1, color: secondary),
           textStyle: const TextStyle(
-            color: Colors.white,
+            color: secondary,
             fontWeight: FontWeight.bold
           ), 
         )

@@ -8,11 +8,12 @@ class SignInScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
     final primaryColor = Theme.of(context).primaryColor;
+    final secondaryColor = Theme.of(context).secondaryHeaderColor;
 
     final gradientDecoration = BoxDecoration(
         gradient: LinearGradient(
-            colors: [Color(0xFFA7BFD9), primaryColor],
-            stops: [0.0, 0.3],
+            colors: [primaryColor, secondaryColor],
+            stops: [0.0, 0.8],
             begin: Alignment.topLeft,
             end: Alignment.bottomRight));
 
@@ -22,7 +23,7 @@ class SignInScreen extends StatelessWidget {
         Column(
           children: [
             Container(
-              height: height * 0.4,
+              height: height * 1,
               decoration: gradientDecoration,
             ),
             Expanded(child: Container()),
