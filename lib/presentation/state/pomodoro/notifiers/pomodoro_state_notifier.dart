@@ -1,11 +1,21 @@
 import 'dart:async';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:nekonapp/presentation/state/pomodoro/pomodoro_state_notifier.dart';
+import 'package:nekonapp/domain/datasources/models/pomodoro_model.dart';
+import 'package:nekonapp/infrastructure/datasources/firebase/firebase_auth_datasource_impl.dart';
+import 'package:nekonapp/infrastructure/datasources/firebase/firebase_pomodoro_datasource_impl.dart';
+import 'package:nekonapp/infrastructure/repositories/auth_repository_impl.dart';
+import 'package:nekonapp/infrastructure/repositories/pomodoro_repository_impl.dart';
+import '../pomodoro_state.dart';
 
 class PomodoroStateNotifier extends StateNotifier<PomodoroState> {
+  final _pomodoroRepository =
+      PomodoroRepositoryImpl(dataSource: FirebasePomodoroDatasourceImpl());
+  final _auth =
+      AuthRepositoryImpl(authDataSource: FirebaseAuthDataSourceImpl());
+
   PomodoroStateNotifier() : super(const PomodoroState.unknown()) {
     state = const PomodoroState(
-        isLoading: false, isPomoActive: false, pomoTimeMin: 25, pomoTimeSec: 0);
+        isLoading: false, isPomoActive: false, pomoTimeMin: 1, pomoTimeSec: 0);
   }
 
   Timer buildTimer() {
@@ -46,9 +56,27 @@ class PomodoroStateNotifier extends StateNotifier<PomodoroState> {
     }
   }
 
-  // Future<void> restart() {
 
-  // }
+  void finishTimer() async {
+    try{
 
-  void finishTimer() {}
+    final userId = _auth.userId;
+    state = state.copyWith(isPomoActive: false);
+    final pomodoroModel = PomodoroModel(
+        completed: true,
+        status: 'work',
+        startTime: DateTime.now(),
+        endTime: DateTime.now(),
+        userId: userId!,
+        duration: 25);
+    await _pomodoroRepository.savePomodoro(pomodoroModel);
+    } catch (err) {
+      //fix this error
+      print(err);
+    }
+      
+  }
+  void changeStatus(){
+    //change Status of pomodoro work -> break, break -> work
+  }
 }

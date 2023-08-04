@@ -15,11 +15,11 @@ class HomeScreen extends ConsumerWidget {
         title: const Text("focus"),
         leading: IconButton(
           onPressed: ref.read(authStateProvider.notifier).logOut,
-          icon: Icon(Icons.exit_to_app),
+          icon: const Icon(Icons.exit_to_app),
 
         ) ,
       ),
-      body: SingleChildScrollView(
+      body: const SingleChildScrollView(
         child: Column(children: [
           PomodoroTimer(),
           PomodoroSettings(), 
