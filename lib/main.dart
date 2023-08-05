@@ -5,6 +5,8 @@ import 'package:nekonapp/presentation/state/router/providers/router_provider.dar
 import 'package:nekonapp/presentation/theme/theme.dart';
 import 'firebase_options.dart';
 
+
+
 import "dart:developer" as devtools show log;
 
 extension Log on Object {

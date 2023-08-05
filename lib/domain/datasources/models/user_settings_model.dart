@@ -2,14 +2,14 @@ import 'package:equatable/equatable.dart';
 
 typedef UserId = String;
 
-class UserSettings extends Equatable {
+class UserSettingsModel extends Equatable {
   final Duration breakDuration;
   final Duration pomoDuration;
   final bool startBreakAuto;
   final bool startPomoAuto;
   final bool vibrate;
 
-  const UserSettings(
+  const UserSettingsModel(
       {
       required this.breakDuration,
       required this.pomoDuration,
@@ -18,9 +18,11 @@ class UserSettings extends Equatable {
       required this.vibrate
       });
 
-  factory UserSettings.fromJson(Map<String, dynamic>? json) => UserSettings(
-      breakDuration: json?['break_duration'],
-      pomoDuration: json?['pomo_duration'],
+  factory UserSettingsModel.fromJson(Map<String, dynamic>? json) => UserSettingsModel(
+
+
+      breakDuration: Duration(minutes:25),
+      pomoDuration: Duration(minutes: 25),
       startBreakAuto: json?['start_break_auto'],
       startPomoAuto: json?['start_pomo_auto'],
       vibrate: json?['vibrate']

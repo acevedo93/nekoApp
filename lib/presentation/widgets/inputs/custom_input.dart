@@ -27,7 +27,7 @@ class CustomInput extends StatelessWidget {
     final theme = Theme.of(context);
     final InputDecoration customInputDecoration = InputDecoration(
         fillColor: theme.primaryColor,
-        label: label != null ? Text(label!) : null,
+        label: label != null ? Text(label!, style: theme.textTheme.bodyLarge,) : null,
        
     );
     if (mode == InputModes.password) {

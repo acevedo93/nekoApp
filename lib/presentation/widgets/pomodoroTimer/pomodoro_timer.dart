@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:nekonapp/presentation/state/pomodoro/providers/pomodoro_state_provider.dart';
+import 'package:nekonapp/presentation/state/user/provider/user_state_provider.dart';
 import 'package:nekonapp/presentation/theme/theme.dart';
 
 class PomodoroTimer extends ConsumerStatefulWidget {
@@ -20,7 +21,8 @@ class PomodoroTimerState extends ConsumerState<PomodoroTimer> {
     return '${pomoTimeMin < 10 ? '0' : ''}$pomoTimeMin:${pomoTimeSec < 10 ? '0' : ''}$pomoTimeSec';
   }
 
-  CupertinoButton _checkButtons() {
+  CupertinoButton _checkButtons(){
+
     return ref.watch(pomodoroStateProvider).isPomoActive
         ? CupertinoButton(
             onPressed: ref.read(pomodoroStateProvider.notifier).stop,
@@ -31,10 +33,13 @@ class PomodoroTimerState extends ConsumerState<PomodoroTimer> {
           );
   }
 
+
+
+
   @override
   dispose() {
-    super.dispose();
     ref.read(pomodoroStateProvider.notifier).stop();
+    super.dispose();
   }
 
   @override

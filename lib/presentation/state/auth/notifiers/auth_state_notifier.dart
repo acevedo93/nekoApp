@@ -1,16 +1,16 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:nekonapp/domain/datasources/models/user_model.dart';
 import 'package:nekonapp/infrastructure/datasources/firebase/firebase_auth_datasource_impl.dart';
+import 'package:nekonapp/infrastructure/datasources/firebase/firebase_user_datasource_impl.dart';
 import 'package:nekonapp/infrastructure/repositories/auth_repository_impl.dart';
-import 'package:nekonapp/presentation/state/user/notifiers/user_state_notifier.dart';
+import 'package:nekonapp/infrastructure/repositories/user_repository_impl.dart';
 import '../../../../domain/datasources/models/auth_result_model.dart';
 import '../auth_state.dart';
 
 class AuthStateNotifier extends StateNotifier<AuthState> {
   final _authRepository =
       AuthRepositoryImpl(authDataSource: FirebaseAuthDataSourceImpl());
-
-  final _userState = UserStateNotifier();
+  final _userRepository = UserRepositoryImpl(datasource: FirebaseUserDataSourceImpl());
       
 
   AuthStateNotifier() : super(AuthState.unknown()) {
@@ -56,6 +56,6 @@ class AuthStateNotifier extends StateNotifier<AuthState> {
         email: email,
         genre: genre,
         createdAt: createdAt);
-    await _userState.saveUser(data);
+    await _userRepository.saveUser(data);
   }
 }
