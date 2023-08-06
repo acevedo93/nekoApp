@@ -31,7 +31,6 @@ class FirebaseUserDataSourceImpl extends UserDatasource {
 
   @override
   Future<UserSettingsModel> getSettingsById(String userId) async {
-    print(userId);
     final userDocument = firestore.collection(collectionPathUsers).doc(userId);
     final settingsSnapShot =
         await userDocument.collection(collectionPathSettings).limit(1).get();

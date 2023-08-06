@@ -12,9 +12,16 @@ class CustomTheme {
       useMaterial3: true,
       primaryColor: primary,
       secondaryHeaderColor: secondary,
+      sliderTheme: SliderThemeData(
+        secondaryActiveTrackColor: secondary,
+        activeTickMarkColor: secondary,
+        overlayColor: secondary,
+        thumbColor: secondary
+      ),
       textTheme: const TextTheme(
           headlineLarge:
               TextStyle(color: secondary, fontWeight: FontWeight.bold),
+          headlineSmall:  TextStyle(color: secondary, fontWeight: FontWeight.bold),
           bodyLarge: TextStyle(color: secondary)),
       scaffoldBackgroundColor: primary,
       appBarTheme: AppBarTheme(
