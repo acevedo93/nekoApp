@@ -4,7 +4,6 @@ import 'package:go_router/go_router.dart';
 import 'package:nekonapp/presentation/state/auth/providers/auth_state_provider.dart';
 import 'package:nekonapp/presentation/state/auth/providers/is_error_provider.dart';
 import 'package:nekonapp/presentation/state/auth/providers/is_loading_provider.dart';
-import 'package:nekonapp/presentation/theme/theme.dart';
 import 'package:nekonapp/presentation/widgets/messages/snack_bar.dart';
 import 'package:nekonapp/utils/forms_validators.dart';
 import 'package:nekonapp/presentation/widgets/inputs/custom_input.dart';
@@ -58,7 +57,7 @@ class SignInFormState extends ConsumerState<SignInForm> {
               context.go('/');
             },
             icon: const Icon(Icons.arrow_back),
-            color: secondary,
+            color: theme.secondaryHeaderColor,
           ),
           const SizedBox(
             height: 40,
@@ -104,9 +103,9 @@ class SignInFormState extends ConsumerState<SignInForm> {
                             minimumSize: const Size(double.infinity, 40)),
                         child: ref.watch(isLoadingProvider)
                             ? Loader(size: 20, color: theme.primaryColor)
-                            : const Text(
+                            : Text(
                                 "Sign In",
-                                style: TextStyle(color: primary),
+                                style: TextStyle(color: theme.primaryColor),
                               ),
                       ),
                       const SizedBox(

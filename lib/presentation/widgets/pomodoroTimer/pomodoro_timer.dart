@@ -3,8 +3,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:nekonapp/presentation/state/pomodoro/providers/pomodoro_state_provider.dart';
-import 'package:nekonapp/presentation/state/user/provider/user_state_provider.dart';
-import 'package:nekonapp/presentation/theme/theme.dart';
 
 class PomodoroTimer extends ConsumerStatefulWidget {
   const PomodoroTimer({super.key});
@@ -26,10 +24,10 @@ class PomodoroTimerState extends ConsumerState<PomodoroTimer> {
     return ref.watch(pomodoroStateProvider).isPomoActive
         ? CupertinoButton(
             onPressed: ref.read(pomodoroStateProvider.notifier).stop,
-            child: const Icon(CupertinoIcons.stop, color: secondary,))
+            child: const Icon(CupertinoIcons.stop,))
         : CupertinoButton(
             onPressed: ref.read(pomodoroStateProvider.notifier).play,
-            child: const Icon(CupertinoIcons.play, color: secondary,),
+            child: const Icon(CupertinoIcons.play,),
           );
   }
 

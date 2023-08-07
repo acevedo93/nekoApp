@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:nekonapp/presentation/theme/theme.dart';
 
 class WelcomeTitle
  extends StatelessWidget {

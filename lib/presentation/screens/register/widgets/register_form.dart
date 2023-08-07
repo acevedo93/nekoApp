@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:nekonapp/presentation/state/auth/providers/auth_state_provider.dart';
-import 'package:nekonapp/presentation/theme/theme.dart';
 import 'package:nekonapp/utils/forms_validators.dart';
 import 'package:nekonapp/presentation/widgets/inputs/custom_input.dart';
 import '../../../state/auth/providers/is_loading_provider.dart';
@@ -51,7 +50,7 @@ class RegisterFormState extends ConsumerState<RegisterForm> {
               context.go('/');
             },
             icon: const Icon(Icons.arrow_back),
-            color: secondary,
+            color: theme.secondaryHeaderColor,
           ),
           const SizedBox(
             height: 40,
@@ -110,9 +109,9 @@ class RegisterFormState extends ConsumerState<RegisterForm> {
                             minimumSize: const Size(double.infinity, 40)),
                        child: ref.watch(isLoadingProvider)
                             ?  Loader(size: 20, color: theme.primaryColor,)
-                            : const Text(
+                            : Text(
                                 "Sign up",
-                                style: TextStyle(color: primary),
+                                style: TextStyle(color: theme.primaryColor),
                               ),
                       ),
                       const SizedBox(
@@ -133,7 +132,7 @@ class RegisterFormState extends ConsumerState<RegisterForm> {
                     context.go('/signIn');
                   },
                   label: 'Sign In',
-                  color: secondary)
+                  color: theme.secondaryHeaderColor)
             ],
           )
         ],
