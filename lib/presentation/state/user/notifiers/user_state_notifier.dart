@@ -1,6 +1,7 @@
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:nekonapp/domain/datasources/models/user_model.dart';
+import 'package:nekonapp/domain/datasources/models/user_settings_model.dart';
 import 'package:nekonapp/infrastructure/datasources/firebase/firebase_user_datasource_impl.dart';
 import 'package:nekonapp/infrastructure/repositories/user_repository_impl.dart';
 import '../../../../infrastructure/datasources/firebase/firebase_auth_datasource_impl.dart';
@@ -40,6 +41,10 @@ class UserStateNotifier extends StateNotifier<UserState> {
     final userId = _authRepository.userId;
     final settings = await _userRepository.getSettingsById(userId!);
     state = state.copyWith(isLoading: false, settings: settings);
-
+  }
+  Future<void> updateSettings( UserSettingsModel settings) async {
+    final userId = _authRepository.userId;
+    state = state.copyWith(settings: settings);
+    await _userRepository.updateSettingsById(userId!, settings);
   }
 }

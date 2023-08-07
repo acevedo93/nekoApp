@@ -39,7 +39,15 @@ class FirebaseUserDataSourceImpl extends UserDatasource {
   }
 
   @override
-  Future<void> updateSettingsById(String userId, UserSettingsModel settings) {
-    throw UnimplementedError();
+  Future<void> updateSettingsById(
+      String userId, UserSettingsModel settings) async {
+    final userDocument = firestore.collection(collectionPathUsers).doc(userId);
+    final settingsSnapShot =
+        await userDocument.collection(collectionPathSettings).limit(1).get();
+    final id = settingsSnapShot.docs.first.id;
+    await userDocument
+        .collection(collectionPathSettings)
+        .doc(id)
+        .update(settings.toJson());
   }
 }

@@ -8,3 +8,4 @@ import '../auth_state.dart';
 final authStateProvider = StateNotifierProvider<AuthStateNotifier, AuthState>((_) => AuthStateNotifier());
 
 //we can make another providers with small pieces
+

@@ -6,3 +6,4 @@ final settingsProvider = Provider<UserSettingsModel?>((ref) {
   final settings = ref.watch(userStateProvider).settings;
   return settings;
 });
+
