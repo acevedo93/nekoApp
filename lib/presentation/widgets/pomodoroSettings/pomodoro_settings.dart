@@ -11,52 +11,38 @@ class PomodoroSettings extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final settingsValues = ref.watch(settingsProvider);
-
-    changeValue<T>( T value, label ) {
-  
-      if(label == 'pomo_duration') {
-        print(value);
-         final settingsToUpdate = UserSettingsModel(
-          breakDuration: Duration(minutes: 7),
-          pomoDuration: Duration(minutes: 23 ),
-          startBreakAuto: value as bool,
-          startPomoAuto: value as bool,
-          vibrate: value as bool
-          );
-            ref.read(userStateProvider.notifier).updateSettings(
-        settingsToUpdate
-      );
-      }
-    
-    };
-
+    final changeValue = ref.read(userStateProvider.notifier).updateSettingsByValue;
     return SingleChildScrollView(
       child: Column(
         children: [
           PomodoroSettingsControl<double>(
-            onChanged: (value) => changeValue<double>(value, "pomo_duration"),
-            initialvalue:( settingsValues?.pomoDuration.inMinutes ?? 25) / 100,
+            onChanged: (value) => changeValue( SettingsKeys.pomoDuration, value.toInt()),
+            initialvalue:( settingsValues?.pomoDuration ?? 25) / 100,
             controlType: ControlType.slider,
+            minValue: 15,
+            maxValue: 45,
             label: "Pomodoro Time",
           ),
           PomodoroSettingsControl<double>(
-              onChanged: (value) => print(value),
-              initialvalue: (settingsValues?.breakDuration.inMinutes ?? 5) / 100,
+              onChanged: (value) => changeValue(SettingsKeys.breakDuration, value.toInt()),
+              initialvalue: (settingsValues?.breakDuration ?? 5) / 100,
               controlType: ControlType.slider,
+              minValue: 5,
+              maxValue: 25,
               label: "Break Time"),
           PomodoroSettingsControl<bool>(
-            onChanged: (value) => changeValue<bool>(value, "pomo_duration"),
+            onChanged: (value) => changeValue(SettingsKeys.startPomoAuto, value),
               initialvalue: settingsValues?.startPomoAuto ?? false,
               controlType: ControlType.toogle,
               label: "Start Pomo auto"),
           PomodoroSettingsControl<bool>(
-            onChanged: (value) => print(value),
+            onChanged: (value) => changeValue(SettingsKeys.startBreakAuto, value),
             initialvalue: settingsValues?.startBreakAuto ?? false,
             controlType: ControlType.toogle,
             label: "Start break auto",
           ),
           PomodoroSettingsControl<bool>(
-            onChanged: (value) => print(value),
+            onChanged: (value) => changeValue(SettingsKeys.vibrate, value),
             initialvalue: settingsValues?.vibrate ?? false,
             controlType: ControlType.toogle,
             label: "Vibrate",

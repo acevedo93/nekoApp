@@ -2,9 +2,37 @@ import 'package:equatable/equatable.dart';
 
 typedef UserId = String;
 
+enum SettingsKeys {
+  breakDuration,
+  pomoDuration,
+  startBreakAuto,
+  vibrate,
+  startPomoAuto
+}
+
+extension SettingsKeyWithValue on SettingsKeys {
+  String get value {
+    switch (this) {
+      case SettingsKeys.pomoDuration:
+        return "pomo_duration";
+      case SettingsKeys.breakDuration:
+        return "break_duration";
+      case SettingsKeys.startBreakAuto:
+        return "start_break_auto";
+      case SettingsKeys.vibrate:
+        return "vibrate";
+      case SettingsKeys.startPomoAuto:
+        return "start_pomo_auto";
+      default:
+        return "";
+    }
+  }
+}
+
+
 class UserSettingsModel extends Equatable {
-  final Duration breakDuration;
-  final Duration pomoDuration;
+  final int breakDuration;
+  final int pomoDuration;
   final bool startBreakAuto;
   final bool startPomoAuto;
   final bool vibrate;
@@ -19,21 +47,19 @@ class UserSettingsModel extends Equatable {
       });
 
   factory UserSettingsModel.fromJson(Map<String, dynamic>? json) => UserSettingsModel(
-
-
-      breakDuration: Duration(minutes:25),
-      pomoDuration: Duration(minutes: 25),
-      startBreakAuto: json?['start_break_auto'],
-      startPomoAuto: json?['start_pomo_auto'],
-      vibrate: json?['vibrate']
+      breakDuration: json?[SettingsKeys.breakDuration.value],
+      pomoDuration: json?[SettingsKeys.pomoDuration.value],
+      startBreakAuto: json?[SettingsKeys.startBreakAuto.value],
+      startPomoAuto: json?[SettingsKeys.startPomoAuto.value],
+      vibrate: json?[SettingsKeys.vibrate.value]
   );
 
   Map<String, dynamic> toJson() => {
-        "break_duration": breakDuration.toString(),
-        "pomo_duration": pomoDuration.toString(),
-        "start_break_auto": startBreakAuto,
-        "start_pomo_auto": startPomoAuto,
-        "vibrate": vibrate
+        SettingsKeys.breakDuration.value: breakDuration,
+        SettingsKeys.pomoDuration.value: pomoDuration,
+        SettingsKeys.startBreakAuto.value: startBreakAuto,
+        SettingsKeys.startPomoAuto.value: startPomoAuto,
+        SettingsKeys.vibrate.value: vibrate
       };
 
   @override

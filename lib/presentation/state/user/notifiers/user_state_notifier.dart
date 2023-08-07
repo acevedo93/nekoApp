@@ -42,9 +42,12 @@ class UserStateNotifier extends StateNotifier<UserState> {
     final settings = await _userRepository.getSettingsById(userId!);
     state = state.copyWith(isLoading: false, settings: settings);
   }
-  Future<void> updateSettings( UserSettingsModel settings) async {
+  Future<void> updateSettingsByValue( SettingsKeys settingKey, dynamic newValue) async {
     final userId = _authRepository.userId;
-    state = state.copyWith(settings: settings);
-    await _userRepository.updateSettingsById(userId!, settings);
+    final currentSettings = state.settings?.toJson();
+    final updatedSettings = currentSettings?.map((key, value) => settingKey.value == key ? MapEntry(key, newValue) : MapEntry(key, value));
+    final newValues = UserSettingsModel.fromJson(updatedSettings);
+    state = state.copyWith(settings: newValues);
+    await _userRepository.updateSettingsById(userId!, newValues);
   }
 }
