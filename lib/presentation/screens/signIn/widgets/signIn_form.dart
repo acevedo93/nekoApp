@@ -103,7 +103,7 @@ class SignInFormState extends ConsumerState<SignInForm> {
                             backgroundColor: theme.secondaryHeaderColor,
                             minimumSize: const Size(double.infinity, 40)),
                         child: ref.watch(isLoadingProvider)
-                            ? const Loader(size: 20)
+                            ? Loader(size: 20, color: theme.primaryColor)
                             : const Text(
                                 "Sign In",
                                 style: TextStyle(color: primary),

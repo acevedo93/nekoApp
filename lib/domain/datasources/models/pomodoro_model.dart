@@ -10,7 +10,7 @@ enum PomodoroStatus {
 
 class PomodoroModel {
   final UserId userId;
-  final Duration duration;
+  final int duration;
   final PomodoroStatus status;
   final DateTime startTime;
   final DateTime endTime;
@@ -26,7 +26,7 @@ class PomodoroModel {
 
   factory PomodoroModel.fromJson(Map<String, dynamic>? json) => PomodoroModel(
       userId: json?['user_id'],
-      duration: Duration(minutes: json?['duration']),
+      duration: json?['duration'],
       status: getPomodoroStatusFromString(json?['status']),
       startTime: json?['start_time'],
       endTime: json?['end_time'],
@@ -34,7 +34,7 @@ class PomodoroModel {
 
   Map<String, dynamic> toJson() => {
         "userId": userId,
-        "duration": duration.toString(),
+        "duration": duration,
         "status": statusString,
         "start_time": startTime,
         "end_time": endTime,

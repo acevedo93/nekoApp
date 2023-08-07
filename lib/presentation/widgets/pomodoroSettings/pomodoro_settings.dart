@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:nekonapp/domain/datasources/models/user_settings_model.dart';
+import 'package:nekonapp/presentation/state/pomodoro/providers/pomodoro_state_provider.dart';
 import 'package:nekonapp/presentation/state/user/provider/settings_provider.dart';
 import 'package:nekonapp/presentation/state/user/provider/user_state_provider.dart';
 import 'package:nekonapp/presentation/widgets/pomodoroSettings/pomodoro_settings_control.dart';
@@ -12,6 +13,13 @@ class PomodoroSettings extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final settingsValues = ref.watch(settingsProvider);
     final changeValue = ref.read(userStateProvider.notifier).updateSettingsByValue;
+
+    //update pomodoro clock
+    ref.listen(settingsProvider, ( prev,next) => {
+      if(prev?.pomoDuration != next?.pomoDuration || prev?.breakDuration != next?.breakDuration)
+      ref.read(pomodoroStateProvider.notifier).updateSettings(next!)
+    });
+
     return SingleChildScrollView(
       child: Column(
         children: [
@@ -47,6 +55,7 @@ class PomodoroSettings extends ConsumerWidget {
             controlType: ControlType.toogle,
             label: "Vibrate",
           ),
+          
         ],
       ),
     );

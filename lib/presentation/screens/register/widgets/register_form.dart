@@ -109,7 +109,7 @@ class RegisterFormState extends ConsumerState<RegisterForm> {
                         style: ElevatedButton.styleFrom(
                             minimumSize: const Size(double.infinity, 40)),
                        child: ref.watch(isLoadingProvider)
-                            ? const Loader(size: 20)
+                            ?  Loader(size: 20, color: theme.primaryColor,)
                             : const Text(
                                 "Sign up",
                                 style: TextStyle(color: primary),
