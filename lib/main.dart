@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:nekonapp/presentation/state/router/providers/router_provider.dart';
-import 'package:nekonapp/presentation/theme/theme.dart';
+import 'package:nekonapp/presentation/state/theme/notifier/theme_state_notifier.dart';
+import 'package:nekonapp/presentation/state/theme/provider/theme_state_provider.dart';
 import 'firebase_options.dart';
 
 
@@ -35,7 +36,7 @@ class MainApp extends ConsumerWidget {
     return MaterialApp.router(
       routerConfig: ref.watch(routerProvider),
       debugShowCheckedModeBanner: false,
-      theme: CustomTheme.getTheme(),
+      theme: ref.watch(themeStateProvider).theme
     );
   }
   
