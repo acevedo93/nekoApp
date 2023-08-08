@@ -12,26 +12,13 @@ class PomodoroTimer extends ConsumerStatefulWidget {
 }
 
 class PomodoroTimerState extends ConsumerState<PomodoroTimer> {
+
   String formatTimer() {
     var pomoTimeMin = ref.watch(pomodoroStateProvider).pomoTimeMin;
     var pomoTimeSec = ref.watch(pomodoroStateProvider).pomoTimeSec;
 
     return '${pomoTimeMin < 10 ? '0' : ''}$pomoTimeMin:${pomoTimeSec < 10 ? '0' : ''}$pomoTimeSec';
   }
-
-  CupertinoButton _checkButtons(){
-
-    return ref.watch(pomodoroStateProvider).isPomoActive
-        ? CupertinoButton(
-            onPressed: ref.read(pomodoroStateProvider.notifier).stop,
-            child: const Icon(CupertinoIcons.stop,))
-        : CupertinoButton(
-            onPressed: ref.read(pomodoroStateProvider.notifier).play,
-            child: const Icon(CupertinoIcons.play,),
-          );
-  }
-
-
 
 
   @override
@@ -45,6 +32,19 @@ class PomodoroTimerState extends ConsumerState<PomodoroTimer> {
 
     var size = MediaQuery.of(context).size;
     final secondaryColor= Theme.of(context).secondaryHeaderColor;
+
+
+  CupertinoButton _checkButtons(){
+
+    return ref.watch(pomodoroStateProvider).isPomoActive
+        ? CupertinoButton(
+            onPressed: ref.read(pomodoroStateProvider.notifier).stop,
+            child:  Icon(CupertinoIcons.stop, color: secondaryColor,))
+        : CupertinoButton(
+            onPressed: ref.read(pomodoroStateProvider.notifier).play,
+            child:  Icon(CupertinoIcons.play, color: secondaryColor),
+          );
+  }
     return Center(
         child: Column(
       children: [

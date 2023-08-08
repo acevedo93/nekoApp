@@ -36,13 +36,13 @@ class PomodoroStateNotifier extends StateNotifier<PomodoroState> {
   }
 
   Timer buildTimer() {
+    state = state.copyWith(isPomoActive: true);
     return Timer.periodic(state.periodicRepeat, buildpomodoroMachine);
   }
 
   void buildpomodoroMachine(Timer timer) {
     var localPomoTimeMin = state.pomoTimeMin;
     var localPomoTimeSec = state.pomoTimeSec;
-    var isPomoActive = state.isPomoActive;
 
     if (localPomoTimeMin == 0 && localPomoTimeSec == 0) {
       finishTimer();
@@ -54,12 +54,11 @@ class PomodoroStateNotifier extends StateNotifier<PomodoroState> {
     } else {
       localPomoTimeSec--;
     }
-    isPomoActive = true;
     state = state.copyWith(
         pomoTimeMin: localPomoTimeMin,
         pomoTimeSec: localPomoTimeSec,
         timerRef: timer,
-        isPomoActive: isPomoActive);
+        );
   }
 
   void play() {

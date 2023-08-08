@@ -11,11 +11,12 @@ class ThemeStateNotifier extends StateNotifier<ThemeState>{
   final Color _colorPrimaryDefault = const Color(0XFF008080);
   final Color _colorSecondaryDefault =const Color(0XFFf3fcfa);
 
-  ThemeStateNotifier(): super(ThemeState(
-    primary: const Color(0XFF008080),
-    secondary: const Color(0XFFf3fcfa),
-    theme: ThemeData()
-  ));
+  ThemeStateNotifier(): super(const ThemeState(
+    primary: Color(0XFF008080),
+    secondary: Color(0XFFf3fcfa),
+  )) {
+    setThemeData();
+  }
 
 
   void setThemeData() {

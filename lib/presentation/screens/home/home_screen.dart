@@ -3,7 +3,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:nekonapp/presentation/state/auth/providers/auth_state_provider.dart';
 import 'package:nekonapp/presentation/state/pomodoro/providers/pomodoro_state_provider.dart';
 import 'package:nekonapp/presentation/state/theme/provider/theme_state_provider.dart';
-import 'package:nekonapp/presentation/state/user/provider/settings_provider.dart';
 import 'package:nekonapp/presentation/state/user/provider/user_state_provider.dart';
 import 'package:nekonapp/presentation/widgets/loader/loader.dart';
 import 'package:nekonapp/presentation/widgets/pomodoroTimer/pomodoro_timer.dart';

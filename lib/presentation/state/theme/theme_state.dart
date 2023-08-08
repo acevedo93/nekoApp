@@ -8,18 +8,16 @@ class ThemeState extends Equatable {
 
   const ThemeState({this.primary, this.secondary, this.theme});
 
-  ThemeState copyWith(
-          {Color? primary,
-          Color? secondary,
-          ThemeData? theme,
-          }
-  ) =>
+  ThemeState copyWith({
+    Color? primary,
+    Color? secondary,
+    ThemeData? theme,
+  }) =>
       ThemeState(
-          primary: primary ?? this.primary,
-          secondary: secondary ?? this.secondary,
-          theme: theme ?? this.theme,
-      )
-        ;
+        primary: primary ?? this.primary,
+        secondary: secondary ?? this.secondary,
+        theme: theme ?? this.theme,
+      );
   @override
   List<Object?> get props => [primary, secondary];
 }
