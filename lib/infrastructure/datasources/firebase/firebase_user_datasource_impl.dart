@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:nekonapp/domain/datasources/models/user_model.dart';
 import 'package:nekonapp/domain/datasources/models/user_settings_model.dart';
 import 'package:nekonapp/domain/datasources/user_datasource.dart';
@@ -50,4 +52,19 @@ class FirebaseUserDataSourceImpl extends UserDatasource {
         .doc(id)
         .update(settings.toJson());
   }
+
+  @override
+  Future<void> getTheme() {
+    // TODO: implement getTheme
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<void> updateTheme(Color primary, Color secondary) {
+    // TODO: implement updateTheme
+    throw UnimplementedError();
+  }
+
+  
+  
 }

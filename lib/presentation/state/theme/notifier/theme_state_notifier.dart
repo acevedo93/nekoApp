@@ -4,9 +4,16 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:nekonapp/domain/repositories/theme_repository.dart';
+import 'package:nekonapp/infrastructure/datasources/local/local_theme_datasource.dart';
+import 'package:nekonapp/infrastructure/repositories/theme_repository_impl.dart';
 import 'package:nekonapp/presentation/state/theme/theme_state.dart';
 
+import '../../../../infrastructure/datasources/firebase/firebase_pomodoro_datasource_impl.dart';
+
 class ThemeStateNotifier extends StateNotifier<ThemeState>{
+
+    final _themeRepository = ThemeRepositoryImpl(dataSource: LocalThemeDatasourceImpl());
 
   final Color _colorPrimaryDefault = const Color(0XFF008080);
   final Color _colorSecondaryDefault =const Color(0XFFf3fcfa);
@@ -87,10 +94,12 @@ class ThemeStateNotifier extends StateNotifier<ThemeState>{
   void setColors(Color primary, Color secondary) {
     state = state.copyWith(primary: primary, secondary: secondary);
     setThemeData();
+    _themeRepository.updateTheme(primary, secondary);
   }
 
   void flipColors(){
     state = state.copyWith(primary: state.secondary, secondary: state.primary);
+    _themeRepository.updateTheme(state.secondary!, state.primary!);
   }
 }
 
